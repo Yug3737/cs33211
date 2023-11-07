@@ -5,18 +5,7 @@
 // author: Yug Patel
 // last modified: 3 November 2023
 //
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <time.h>
-#include <semaphore.h>
-
-int buffer[10];
-int count =0;
-sem_t  semEmpty;
-sem_t semFull;
+#include "common.h"
 
 pthread_mutex_t mutexBuffer;
 
@@ -25,14 +14,28 @@ void* consumer(void* args){
     while(1){
         //Remove from the buffer
         sem_wait(&semFull);
-        pthread_mutex_lock(&mutexBuffer);
+
         int y = buffer[count-1];
         count--;
-        pthread_mutex_lock(&mutexBuffer);
+
         sem_post(&semEmpty);
 
         //Consume
         printf("Got %d\n", y);
         sleep(1);
     }
+}
+
+int main(){
+    //create new thread
+    //open shared memory
+    // loop{
+    //  read from table
+    //  print result
+    //  use semaphore to signal reading done
+    //}
+
+    sharedMemoryObj consumerObj;
+    shm_open();
+
 }
