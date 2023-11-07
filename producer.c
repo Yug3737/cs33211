@@ -12,8 +12,8 @@
 #include <time.h>
 #include <semaphore.h>
 
-int buffer[10];
-int count =0;
+ int buffer[10];
+ int count =0;
 sem_t  semEmpty;
 sem_t semFull;
 
@@ -35,6 +35,5 @@ void* producer(void* args){
 
         pthread_mutex_unlock(&mutexBuffer);
         sem_post(&semFull);
-
     }
 }

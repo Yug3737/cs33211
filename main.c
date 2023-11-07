@@ -1,5 +1,5 @@
 //
-// codeVault multithread example
+// multithread example
 //
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,10 +15,11 @@
 #define THREAD_NUM 2
 // #define PROCESS_NUM 2       
 
-sem_t  semEmpty;
-sem_t semFull;
+// sem_t  semEmpty;
+// sem_t semFull;
 //We use mutex to ensure data consistency
-pthread_mutex_t mutexBuffer;
+// pthread_mutex_t mutexBuffer;
+
 
 int buffer[10];
 int count =0;
@@ -48,3 +49,6 @@ int main(int argc, char* argv[]){
     pthread_mutex_destroy(&mutexBuffer);
     return 0;
 }
+
+//Shared memory pointer
+//
