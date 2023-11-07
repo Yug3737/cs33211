@@ -10,11 +10,14 @@
 #include <semaphore.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/shm.h>
+#include <sys/types.h>
 
 
-struct sharedMemoryObj{
-    sem_t  semEmpty;
-    sem_t semFull;
+struct sharedMemoryObj {
+    sem_t  semNumEmptySlots;
+    sem_t  semNumReadSlots;
     int bufferArray[10];
 };
 
