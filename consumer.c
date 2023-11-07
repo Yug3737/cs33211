@@ -7,26 +7,8 @@
 //
 #include "common.h"
 
-pthread_mutex_t mutexBuffer;
-
-
-void* consumer(void* args){
-    // while(1){
-    //     //Remove from the buffer
-    //     sem_wait(&semFull);
-
-    //     int y = buffer[count-1];
-    //     count--;
-
-    //     sem_post(&semEmpty);
-
-    //     //Consume
-    //     printf("Got %d\n", y);
-    //     sleep(1);
-    // }
-}
-
 int main(){
+    // MAIN IDEA
     //create new thread
     //open shared memory
     // loop{
@@ -39,10 +21,6 @@ int main(){
     int retValue = shm_open("sharedMemoryObj",O_RDWR,0777);
     if(retValue == -1){ printf("%s Error in shm_open return value");}
 
-    //
-    // sem_init(&(consumerObj->semNumEmptySlots), 1, 10); // We need an & here because
-    // sem_init(&(consumerObj->semNumReadSlots), 1 , 0);
-
     // The semaphore semFull
     //consumerObj->bufferArray[];
     
@@ -50,9 +28,9 @@ int main(){
         //Wait for consumer semaphore, intially value would be 0
         sem_wait(&consumerObj->semNumReadSlots);
             int item = rand() % 10;
-            consumerObj->bufferArray[i] = item;
+            consumerObj->bufferArray[i] = item; //write random item
             printf("%s consumer read item %i", item);
-        sem_post(&consumerObj->semNumReadSlots);
+        sem_post(&consumerObj->semNumEmptySlots); //increases semaphore value for producer
 
     }
 
