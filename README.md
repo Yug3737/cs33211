@@ -15,4 +15,9 @@ There are 3 lines of command-line arguments.
 2nd: gcc consumer.c -pthread -lrt -o consumer
 3rd: ./producer & ./consumer & #producer and consumer are the names of our object files
 
+**Problems faced**
+1. Initially, my implementation used 3 arrays representing the shared buffer. But then I realized that I was not actually using the shared. So I created the shared buffer with shm_open() function giving it the appropriate arguments.
+2. Another issue I faced, in the end, was that after the became compilable, it was not printing the printf statement in between the sem_wait() and sem_post() functions in both producer and consumer files. This issue was easily solved when I removed %s since I was not giving it any placeholder.
+3. 
+
 
