@@ -18,6 +18,6 @@ There are 3 lines of command-line arguments.
 **Problems faced**
 1. Initially, my implementation used 3 arrays representing the shared buffer. But then I realized that I was not actually using the shared. So I created the shared buffer with shm_open() function giving it the appropriate arguments.
 2. Another issue I faced, in the end, was that after the became compilable, it was not printing the printf statement in between the sem_wait() and sem_post() functions in both producer and consumer files. This issue was easily solved when I removed %s since I was not giving it any placeholder.
-3. 
+3. A bigger issue was in the end when the return Value for the shm_open function showed an error. The problem was that the producer was done producing the items and used to unlink the shared memory object before consumer even started consuming. Hence we realized that calling unlink in producer doesn't help and we just wrote unlink statement in consumer file.
 
 
