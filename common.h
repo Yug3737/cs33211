@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <sys/shm.h>
 #include <sys/types.h>
+#include <errno.h>
 
 
 struct sharedMemoryObj {
