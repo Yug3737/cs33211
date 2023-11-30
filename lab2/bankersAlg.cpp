@@ -1,7 +1,7 @@
 //
 // file: bankersAlg.cpp
 // author: Yug Patel
-// last modified: 29 November 2023
+// last modified: 30 November 2023
 //
 #include <iostream>
 #include <fstream>
@@ -14,7 +14,7 @@ const int numResources = 3;
 
 void calculateNeed(int need[numProcesses][numResources], int maxm[numProcesses][numResources],
                    int allot[numProcesses][numResources]){
-    // Calculating Need of each Process
+    // Calculating Need for each Process
     for (int i = 0 ; i < numProcesses ; i++){
         for (int j = 0 ; j < numResources ; j++){
  
@@ -32,7 +32,6 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
 
     int need[numProcesses][numResources];
  
-    // Function to calculate instance need matrix
     calculateNeed(need, maxm, allot);
 
     // std::cout << need[1][1] << std::endl;
@@ -40,7 +39,6 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
     // Mark all processes as unfinished
     bool finish[numProcesses] = {0};
  
-    // To store safe sequence
     int safeSeq[numProcesses];
  
     // Make a copy of available resources
@@ -61,8 +59,7 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
             // if no, go for next condition
             if (finish[p] == 0){
                 // Check if for all resources of
-                // current P need is less
-                // than work
+                // current P need is less than work
                 int j;
                 for (j = 0; j < numResources; j++)
                     if (need[p][j] > work[j])
@@ -70,9 +67,8 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
  
                 // If all needs of p were satisfied.
                 if (j == numResources){
-                    // Add the allocated resources of
-                    // current P to the available/work
-                    // resources i.e.free the resources
+                    // Add the allocated resources of 
+                    // current process to the available/work resources i.e.free the resources
                     for (int k = 0 ; k < numResources ; k++)
                         work[k] += allot[p][k];
  
