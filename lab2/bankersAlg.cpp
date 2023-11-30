@@ -15,11 +15,15 @@ const int numResources = 3;
 void calculateNeed(int need[numProcesses][numResources], int maxm[numProcesses][numResources],
                    int allot[numProcesses][numResources]){
     // Calculating Need of each Process
-    for (int i = 0 ; i < numProcesses ; i++)
-        for (int j = 0 ; j < numResources ; j++)
+    for (int i = 0 ; i < numProcesses ; i++){
+        for (int j = 0 ; j < numResources ; j++){
  
             // Needed instances = maximum instances - allocated instances
             need[i][j] = maxm[i][j] - allot[i][j];
+            // cout<< need[i][j] <<" ";
+        }
+        cout <<endl;
+    }
 }
  
 // Function to find the system is in safe state or not
@@ -30,6 +34,8 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
  
     // Function to calculate instance need matrix
     calculateNeed(need, maxm, allot);
+
+    // std::cout << need[1][1] << std::endl;
  
     // Mark all processes as unfinished
     bool finish[numProcesses] = {0};
@@ -80,8 +86,7 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
             }
         }
  
-        // If we could not find a next process in safe
-        // sequence.
+        // If we could not find a next process in safe sequence.
         if (found == false){
             cout << "System is not in safe state";
             return false;
@@ -92,7 +97,7 @@ bool isSafe(int processes[], int avail[], int maxm[][numResources],
     cout << "System is in safe state.\nSafe"
          " sequence is: ";
     for (int i = 0; i < numProcesses ; i++)
-        cout << safeSeq[i] << " ";
+        cout <<"P"<< safeSeq[i] << " ";
  
     return true;
 }
@@ -101,8 +106,8 @@ int main(){
     int processes[] = {0, 1, 2, 3, 4};
     int avail[3]; // Available instances of resources
     // {3, 3, 2};
-    int maxm[][numResources];
-    int avail[][numResources];
+    int maxm[numProcesses][numResources];
+    int allot[numProcesses][numResources];
     
     ifstream fin("input.txt");
     while(!fin.eof()){
@@ -110,11 +115,13 @@ int main(){
         std::getline(fin, tempStr,'\n');
         if(tempStr == "Allocation" && tempStr != "Maximum" ){
             std::getline(fin, tempStr, '\n');
+           // std::cout << tempStr << " <- tempStr\n";
             int i = 0;
             int j = 0;
             for(i = 0; i < 5 ; ++i){
                 for(j = 0; j < 3; ++j){
-                    avail[i][j] = tempStr[2j+1];
+                   // std::cout << "getting " << tempStr[2*j] << " from tempStr\n";
+                    allot[i][j] = atoi(&tempStr[2*j]);
                 }
                 std::getline(fin,tempStr, '\n');
             }
@@ -125,7 +132,7 @@ int main(){
             int j = 0;
             for(i = 0; i < 5 ; ++i){
                 for(j = 0; j < 3; ++j){
-                    maxm[i][j] = tempStr[2j+1];
+                    maxm[i][j] = atoi(&tempStr[2*j]);
                 }
                 std::getline(fin,tempStr, '\n');
             }
@@ -136,8 +143,6 @@ int main(){
             avail[2] = 2;
         }
     }
-
-
     // Maximum R that can be allocated to processes
     // int maxm[][numResources] ;
  
@@ -146,6 +151,8 @@ int main(){
  
     // Check system is in safe state or not
     isSafe(processes, avail, maxm, allot);
- 
+    fin.close();
     return 0;
 }
+
+// if need > availale, it is unsafe
