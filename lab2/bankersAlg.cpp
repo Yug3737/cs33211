@@ -139,13 +139,8 @@ int main(){
             avail[2] = 2;
         }
     }
-    // Maximum R that can be allocated to processes
-    // int maxm[][numResources] ;
  
-    // Resources allocated to processes
-    // int allot[][numResources] ;
- 
-    // Check system is in safe state or not
+    // Checking if system is in safe state 
     isSafe(processes, avail, maxm, allot);
     fin.close();
     return 0;
